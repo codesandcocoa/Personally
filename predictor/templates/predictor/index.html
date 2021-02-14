@@ -37,7 +37,12 @@
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="margin-top: 50px;height: 55px;background: rgb(254,254,254);color: rgb(58,56,56);border-bottom-color: rgb(254,254,254);">PREDICT</button></div>
         </form>
     </div>
-    
+    <div id="prediction">
+    {% if predicted %}
+    <h3 style="color:grey;">Prediction results</h3><br>
+    {{path | safe}}
+    {% endif %}
+    </div>
     <section class="py-5">
         <div class="container">
             <div class="row">

@@ -13,6 +13,7 @@ from socialreaper.tools import to_csv
 from googlesearch import search
 import pandas as pd
 from django.conf import settings
+import plotly.express as px
 
 class DataPrep():
     def __init__(self):
@@ -184,9 +185,9 @@ def get_text_from_tweets(user_name):
                     exclude_replies=False, 
                     include_retweets=True)
         
-    to_csv(list(tweets), filename=user_name+'_tweets.csv')
+    to_csv(list(tweets), filename='predictor/data/'+user_name+'_tweets.csv')
 
-    tweets_df = pd.read_csv(user_name+"_tweets.csv")
+    tweets_df = pd.read_csv('predictor/data/'+user_name+'_tweets.csv')
     just_tweets=tweets_df[["text"]]
     ##remove urls 
     no_urls = just_tweets['text'].apply(lambda x: re.split('https:\/\/.*', str(x))[0])
@@ -230,14 +231,17 @@ def display_results(predictions, user_name):
              predictions['pred_prob_cAGR'],
              predictions['pred_prob_cNEU']]
 
-    plt.rcParams["figure.figsize"] = (12, 6)
-    plt.ylim([0.0,1.0])
-    plt.bar(['Openness','Conscientiousness','Extraverison','Agreeableness','Neuroticism'],attrs, color =('green', 'black', 'pink', 'orange', 'yellow'), alpha=0.5)
-    plt.xlabel("Attribute")
-    plt.ylabel("Tendency")
-    plt.title(user_name+"'s Personality Report")
-    plt.grid()
-    plt.savefig('predictor/prediction.png')
+    attrs = [predictions['pred_prob_cOPN'],
+             predictions['pred_prob_cCON'],
+             predictions['pred_prob_cEXT'],
+             predictions['pred_prob_cAGR'],
+             predictions['pred_prob_cNEU']]
+
+    fig = px.line_polar(r=attrs, 
+                        theta=["Openness", "Conscientiousness", "Extraverison", "Agreeableness", "Neuroticism"],
+                        line_close=True)
+    fig.update_traces(fill='toself')
+    fig.write_html("predictor/templates/predictor/prediction.html")
 
 def predict_traits(keyword):
     traits = ['OPN', 'CON', 'EXT', 'AGR', 'NEU']
@@ -260,4 +264,5 @@ def predict_traits(keyword):
     user_name = get_profile(keyword)['twitter']
     text = get_text_from_tweets(user_name)
     predictions = predict(text)
-    display_results(predictions, user_name) 
+    html = display_results(predictions, user_name) 
+    return [predictions, html]
