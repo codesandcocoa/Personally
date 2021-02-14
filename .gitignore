@@ -1,0 +1,25 @@
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+models/
+# Distribution / packaging
+.Python
+env/
+build/
+include/
+bin/
+lib/
+
+
+### Django ###
+*.pyc
+__pycache__/
+
+.env
+db.sqlite3
+
+.idea
+.vscode
+vir
+python3
+predictor/models

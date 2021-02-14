@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Personally</title>
+    <meta name="description" content="BIG5 Personality Prediction by analysing the social interactions on Twitter">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">
+</head>
+
+<body id="page-top">
+    <header class="masthead" style="background: url({% static 'img/istockphoto-951708378-612x612.jpg' %}) center / cover, var(--dark);opacity: 1;height: 100%;max-height: 100%;">
+        <div class="container" style="width: 100%;max-width: 100%;height: 100%;">
+            <div class="intro-text" style="height: 100%;width: 100%;max-height: 100%;">
+                <div class="intro-heading text-uppercase"><span>PERSONALLY</span></div>
+                <div class="intro-lead-in"><span style="font-family: Montserrat, sans-serif;font-style: normal;font-size: 30px;">Know your BIG5 Personality traits&nbsp; based on your social interactions in Twitter on the go</span></div><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" role="button" href="#predict" style="background: rgb(10,9,25);border-style: solid;border-color: rgb(10,9,25);border-radius: 60px;margin-top: 60px;">get started</a>
+            </div>
+        </div>
+    </header>
+    <div id="predict" class="login-clean" style="background: rgb(9,9,33);">
+        <div class="col-lg-12 text-center">
+            <h2 class="text-uppercase section-heading" style="color: rgb(251,252,254);">social personality</h2>
+            <h3 class="text-muted section-subheading" style="font-size: 16px;margin-top: 30px;margin-bottom: 30px;">Our product uses benchmark personality&nbsp; prediction model for predicting your personality</h3>
+        </div>
+        <form method="post" style="width: 500px;max-width: 500px;margin-top: 72px;background: rgb(9,9,33);border-radius: 16px;border: 1px solid rgb(246,247,248) ;">
+            {% csrf_token %}
+            <h2 class="sr-only">Predictor</h2>
+            <div class="form-group"><input class="form-control" type="text" name="fullname" style="background: rgb(14,14,16);padding: 10px;height: 60px;border-radius: 7px;opacity: 0.51;border-style: solid;border-color: rgb(11,11,25);border-bottom-color: rgb(235,235,239);color: rgb(247,248,248);" placeholder="Fullname"></div>
+            <div class="form-group"><input class="form-control" type="text" name="keywords" style="background: rgb(14,14,16);padding: 10px;height: 60px;border-radius: 7px;opacity: 0.51;border-style: solid;border-color: rgb(11,11,25);border-bottom-color: rgb(235,235,239);color: rgb(240,242,245);" placeholder="Keywords"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="margin-top: 50px;height: 55px;background: rgb(254,254,254);color: rgb(58,56,56);border-bottom-color: rgb(254,254,254);">PREDICT</button></div>
+        </form>
+    </div>
+    
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <h3 style="color:grey;">Built with</h2>
+            </div>
+            <div class="row" style="margin-top:30px;">
+                <div class="col-sm-6 col-md-2"><img class="img-fluid d-block mx-auto" src="{% static 'img/clients/creative-market.png' %}" style="height: 70px; width: 70px;"></div>
+                <div class="col-sm-6 col-md-2"><img class="img-fluid d-block mx-auto" src="{% static 'img/clients/designmodo.png' %}" style="height: 70px; width: 150px;"></div>
+                <div class="col-sm-6 col-md-2"><img class="img-fluid d-block mx-auto" src="{% static 'img/clients/envato.png' %}" style="height: 70px; width: 200px;"></div>
+                <div class="col-sm-6 col-md-2"><img class="img-fluid d-block mx-auto" src="{% static 'img/clients/themeforest.png' %}" style="height: 60px; width: 180px;"></div>
+                <div class="col-sm-6 col-md-2"><img class="img-fluid d-block mx-auto" src="{% static 'img/clients/bootstrap.png' %}" style="height: 70px; width: 70px;"></div>
+                <div class="col-sm-6 col-md-2"><img class="img-fluid d-block mx-auto" src="{% static 'img/clients/pandas_logo.png' %}" style="height: 70px; width: 180px;"></div>
+
+            </div>
+        </div>
+    </section>
+    <footer></footer>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{% static 'js/agency.js' %}"></script>
+</body>
+
+</html>
