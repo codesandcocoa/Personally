@@ -2,7 +2,6 @@ import optparse
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
 import matplotlib.pyplot as plt
-import pandas as pd
 import re
 import numpy as np
 import pickle
@@ -12,9 +11,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from socialreaper import Twitter
 from socialreaper.tools import to_csv
 from googlesearch import search
-import re
 import pandas as pd
-import pickle
 from django.conf import settings
 
 class DataPrep():
@@ -162,38 +159,6 @@ class Model():
         else:
             return self.rfc.predict_proba(X)
 
-class Model():
-    def __init__(self):
-        self.rfr = RandomForestRegressor(bootstrap=True,
-         max_features='sqrt',
-         min_samples_leaf=1,
-         min_samples_split=2,
-         n_estimators= 200)
-        self.rfc = RandomForestClassifier(max_features='sqrt', n_estimators=110)
-        self.tfidf = TfidfVectorizer(stop_words='english', strip_accents='ascii')
-
-    def fit(self, X, y, regression=True):
-        X = self.tfidf.fit_transform(X)
-        if regression:
-            self.rfr = self.rfr.fit(X, y)
-        else:
-            self.rfc = self.rfc.fit(X, y)
-
-    def predict(self, X, regression=True):
-        X = self.tfidf.transform(X)
-        if regression:
-            return self.rfr.predict(X)
-        else:
-            return self.rfc.predict(X)
-
-    def predict_proba(self, X, regression=False):
-        X = self.tfidf.transform(X)
-        if regression:
-            raise ValueError('Cannot predict probabilites of a regression!')
-        else:
-            return self.rfc.predict_proba(X)
-
-
 
 def get_profile(keyword):
   print("getting profiles from google..")
@@ -249,19 +214,13 @@ def predict(X):
         for trait in traits:
             pkl_model = models[trait]
             trait_scores = pkl_model.predict(X, regression=True).reshape(1, -1)
-            # scaler = MinMaxScaler(feature_range=(0, 50))
-            # print(scaler.fit_transform(trait_scores))
-            # scaled_trait_scores = scaler.fit_transform(trait_scores)
             predictions['pred_s'+trait] = trait_scores.flatten()[0]
-            # predictions['pred_s'+trait] = scaled_trait_scores.flatten()
 
             trait_categories = pkl_model.predict(X, regression=False)
             predictions['pred_c'+trait] = str(trait_categories[0])
-            # predictions['pred_c'+trait] = trait_categories
 
             trait_categories_probs = pkl_model.predict_proba(X)
             predictions['pred_prob_c'+trait] = trait_categories_probs[:, 1][0]
-            # predictions['pred_prob_c'+trait] = trait_categories_probs[:, 1]
         return predictions
 
 def display_results(predictions, user_name):
@@ -272,7 +231,6 @@ def display_results(predictions, user_name):
              predictions['pred_prob_cNEU']]
 
     plt.rcParams["figure.figsize"] = (12, 6)
-    #plt.style.use('ggplot')
     plt.ylim([0.0,1.0])
     plt.bar(['Openness','Conscientiousness','Extraverison','Agreeableness','Neuroticism'],attrs, color =('green', 'black', 'pink', 'orange', 'yellow'), alpha=0.5)
     plt.xlabel("Attribute")
@@ -299,7 +257,6 @@ def predict_traits(keyword):
             # Write the model to a file.
             pickle.dump(model, f)'''
     M = Model()
-    
     user_name = get_profile(keyword)['twitter']
     text = get_text_from_tweets(user_name)
     predictions = predict(text)
