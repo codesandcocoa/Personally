@@ -7,6 +7,7 @@ This project aims to predict the psychological traits of a person on the basis o
 5. Agreeableness
 ## Here's how it works:
 ![](https://github.com/sanjay-thiyagarajan/personally/blob/master/images_and_gifs/workflow_1.png)
+We have trained the random forest algorithm in this [colab notebook](https://colab.research.google.com/github/sanjay-thiyagarajan/personally/blob/master/predict_personality.ipynb), feel free to check it out.
 
 ## Installation Instructions
 The portal is primarily a django based application, and to set it up we require to have 
