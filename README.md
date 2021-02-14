@@ -1,4 +1,12 @@
 # Personally
+This project aims to predict the psychological traits of a person on the basis of his/her social media posts. It predicts the following traits:
+1. EXT - Extraversion
+2. OPN - Openness
+3. NEU - Neuorticism
+4. CON - Conscientiousness
+5. Agreeableness
+## Here's how it works:
+![](https://github.com/sanjay-thiyagarajan/personally/blob/master/images_and_gifs/workflow_1.png)
 
 ## Installation Instructions
 The portal is primarily a django based application, and to set it up we require to have 
