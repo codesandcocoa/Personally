@@ -40,5 +40,7 @@ From now when you start your work, run ``source bin/activate`` inside the projec
 * `python manage.py migrate` - set up database
 * `python manage.py createsuperuser` - create admin user
 * `python manage.py runserver`  - run the project locally
+### Screenshots
+<img src = "images_and_gifs/Screen Capture_select-area_20210214221629.png"><img src = "images_and_gifs/Screen Capture_select-area_20210214221727.png"><img src = "images_and_gifs/Screen Capture_select-area_20210214221906.png">
 
 
