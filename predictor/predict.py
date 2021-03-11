@@ -13,6 +13,7 @@ from socialreaper.tools import to_csv
 from googlesearch import search
 import pandas as pd
 from django.conf import settings
+import plotly.graph_objs as go
 import plotly.express as px
 
 class DataPrep():
@@ -231,16 +232,25 @@ def display_results(predictions, user_name):
              predictions['pred_prob_cAGR'],
              predictions['pred_prob_cNEU']]
 
-    attrs = [predictions['pred_prob_cOPN'],
-             predictions['pred_prob_cCON'],
-             predictions['pred_prob_cEXT'],
-             predictions['pred_prob_cAGR'],
-             predictions['pred_prob_cNEU']]
+    y=attrs
+    t=[str(i*100)[0:5]+"%" for i in y]
+    x=['Openness','Conscientiousness','Extraverison','Agreeableness','Neuroticism']
+    colors=['lightblue','lightsalmon','pink', 'lightgreen', 'indianred']
+    data = [go.Bar(x = x, 
+                   y = y, 
+                   text=t,
+                   textposition='auto'
+                   )]
 
-    fig = px.line_polar(r=attrs, 
-                        theta=["Openness", "Conscientiousness", "Extraverison", "Agreeableness", "Neuroticism"],
-                        line_close=True)
-    fig.update_traces(fill='toself')
+    fig = go.Figure(data=data)
+
+    fig.update_traces(marker_color=colors, marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.7)
+    
+    #fig.update_traces(texttemplate=, textposition='outside')
+
+    fig.update_layout(title_text=user_name+"'s personality report")
+    fig.update_layout(yaxis_tickformat = '%')
     fig.write_html("predictor/templates/predictor/prediction.html")
 
 def predict_traits(keyword):
